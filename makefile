@@ -22,8 +22,10 @@ install: venv
 
 # Formater le code et appliquer les checks
 fmt:
+	pre-commit run isort --all-files
+	pre-commit run black --all-files
 	pre-commit run --all-files
-	@echo "Formatting and checks complete!"
+	@echo "All formatting and checks complete!"
 
 # Lancer uniquement les checks sans modifier le code
 check:

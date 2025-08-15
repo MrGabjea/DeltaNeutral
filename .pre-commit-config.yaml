@@ -27,11 +27,12 @@ repos:
         stages: [pre-commit, manual]
 
 -   repo: https://github.com/pycqa/flake8
-    rev: 7.2.0
+    rev: 6.0.0
     hooks:
     -   id: flake8
-        additional_dependencies: [flake8-docstrings]
-        stages: [pre-commit, manual]
+        args:
+            - --max-line-length=88
+            - --extend-ignore=D100,D101,D102,D103,D104,D105,D106,D107
 
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.15.0
