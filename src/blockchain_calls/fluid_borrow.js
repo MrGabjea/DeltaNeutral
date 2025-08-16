@@ -1,4 +1,6 @@
-require('dotenv').config({ path: '../../.env', quiet: true });
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env'), quiet: true });
+
 const { ethers } = require('ethers');
 
 // --- ENVIRONMENT VARIABLES ---
@@ -31,7 +33,7 @@ if (args.length < 1) {
     process.exit(1);
 }
 
-const borrowAmount = ethers.BigNumber.from(args[0]); // amount to borrow
+const borrowAmount = ethers.parseUnits(args[0], 0); // amount to borrow
 const nftId = parseInt(args[1]);       // 0 = create new position
 const toAddress = WALLET_ADDRESS;
 

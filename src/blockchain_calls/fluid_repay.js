@@ -1,4 +1,6 @@
-require('dotenv').config({ path: '../../.env', quiet: true });
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env'), quiet: true });
+
 const { ethers } = require('ethers');
 
 // --- ENVIRONMENT VARIABLES ---
@@ -24,15 +26,14 @@ const vaultManagerAbi = [
 const vaultManager = new ethers.Contract(VAULT_MANAGER_ADDRESS, vaultManagerAbi, wallet);
 
 // --- COMMAND LINE ARGUMENTS ---
-// Usage: node repay.js <borrowAmount> <nftId>
+// Usage: node repay.js <repayAmount> <nftId>
 const args = process.argv.slice(2);
 if (args.length < 1) {
     console.error("Usage: node repay.js <borrowAmount> <nftId>");
     process.exit(1);
 }
 
-const amount = ethers.BigNumber.from(args[0]); // amount to repay
-const repayAmount = amount.mul(-1n);
+const repayAmount = -1n * ethers.parseUnits(args[0], 0);// amount to repay
 const nftId = parseInt(args[1]);       // 0 = create new position
 const toAddress = WALLET_ADDRESS;
 

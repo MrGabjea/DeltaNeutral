@@ -1,5 +1,5 @@
 from src.subclass_position.fluid import Fluid
 
-pos = Fluid()
+pos = Fluid(id=5629)
 
-pos.remove_collateral(3)
+pos.add_collateral(10**7)
