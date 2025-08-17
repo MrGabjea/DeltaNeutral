@@ -2,7 +2,6 @@ from ..position import Position
 
 
 class Hyperliquid(Position):
-
     def __init__(self) -> None:
         # to do
         self.amount_collateral = 0

@@ -7,7 +7,6 @@ from ..position import Position
 
 @dataclass
 class Fluid(Position):
-
     id: int = 0  # nftId of the Vault
 
     def add_collateral(self, amount: int) -> int:

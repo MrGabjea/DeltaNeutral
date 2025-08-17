@@ -11,14 +11,6 @@ repos:
     -   id: check-added-large-files
         stages: [pre-commit, manual]
 
--   repo: https://github.com/pycqa/isort
-    rev: 6.0.1
-    hooks:
-    -   id: isort
-        name: isort (python)
-        args: ["--profile", "black"]
-        stages: [pre-commit, manual]
-
 -   repo: https://github.com/psf/black
     rev: 25.1.0
     hooks:
@@ -26,13 +18,12 @@ repos:
         args: ["--target-version=py310"]
         stages: [pre-commit, manual]
 
--   repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.7
     hooks:
-    -   id: flake8
-        args:
-            - --max-line-length=88
-            - --extend-ignore=D100,D101,D102,D103,D104,D105,D106,D107
+    -   id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix"]  # auto-fix + échoue si corrections nécessaires
+        stages: [pre-commit, manual]
 
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.15.0
