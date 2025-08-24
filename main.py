@@ -1,5 +1,5 @@
-from src.subclass_position.fluid import Fluid
+from src.subclass_position.morpho import Morpho
 
-pos = Fluid(id=5629)
+pos = Morpho()
 
-pos.add_collateral(10**7)
+pos.remove_collateral(10**7)

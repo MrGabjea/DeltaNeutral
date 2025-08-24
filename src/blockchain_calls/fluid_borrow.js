@@ -29,7 +29,7 @@ const vaultManager = new ethers.Contract(VAULT_MANAGER_ADDRESS, vaultManagerAbi,
 // Usage: node borrow.js <borrowAmount> [nftId]
 const args = process.argv.slice(2);
 if (args.length < 1) {
-    console.error("Usage: node borrow.js <borrowAmount> [nftId] [toAddress]");
+    console.error("Usage: node borrow.js <borrowAmount> <nftId> [toAddress]");
     process.exit(1);
 }
 
