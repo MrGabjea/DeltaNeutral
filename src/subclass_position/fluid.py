@@ -17,7 +17,7 @@ class Fluid(Position):
             print(f"ERROR: {file_path} not found")
             return 0
         try:
-            print(f"Removing collateral {amount}...", end="")
+            print(f"Adding collateral {amount}...", end="")
             result = subprocess.run(
                 ["node", file_path, str(amount), str(self.id)],
                 capture_output=True,
@@ -26,7 +26,6 @@ class Fluid(Position):
             )
             print(" Done")
             print("Output:", result.stdout.strip())
-            return 1
         except subprocess.CalledProcessError as e:
             print("Erreur lors de l'exécution JS :")
             print(e.stderr)

@@ -30,7 +30,6 @@ class Morpho(Position):
             )
             print(" Done")
             print("Output:", result.stdout.strip())
-            return 1
         except subprocess.CalledProcessError as e:
             print("Erreur lors de l'exécution JS :")
             print(e.stderr)
@@ -55,7 +54,6 @@ class Morpho(Position):
             )
             print(" Done")
             print("Output:", result.stdout.strip())
-            return 1
         except subprocess.CalledProcessError as e:
             print("Erreur lors de l'exécution JS :")
             print(e.stderr)

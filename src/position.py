@@ -9,6 +9,7 @@ class Position:
     amount_collateral: int = 0
     amount_position: float = 0.0
 
+    # the following methods must be overwritten in dedicated subclass file
     def add_collateral(self, amount: int) -> int:
         raise NotImplementedError("The method hasn't been implemented for subclass")
 
