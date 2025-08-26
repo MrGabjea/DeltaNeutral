@@ -1,5 +1,7 @@
-from src.subclass_position.morpho import Morpho
+from config import config
+from src.subclass_position.hyperLiquid import Hyperliquid
 
-pos = Morpho()
+pos = Hyperliquid(key="0xkey", wallet_address="0xaddress")
 
-pos.remove_collateral(10**7)
+print(config["long"])
+# pos.remove_collateral(5 * 10**6)
