@@ -10,6 +10,18 @@ class Hyperliquid(Position):
 
     key: str = "0x"
     wallet_address: str = "0x"
+    entry_price: float = 1.0
+    max_leverage: int = 10
+
+    def get_ratio(self, quote: float, side: str = "short") -> float:
+        # when ratio == 1 the position is liquidated
+        factor = 1 if side == "short" else -1
+        liquidation_price = (
+            self.entry_price
+            + factor * (10**6) * self.amount_collateral / self.max_leverage
+        )
+        ratio = 1 - (abs(quote - liquidation_price) / quote)
+        return ratio
 
     def add_collateral(self, amount: int) -> int:
         src_dir = os.path.dirname(os.path.dirname(__file__))
