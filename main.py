@@ -42,8 +42,9 @@ def main() -> None:
                     amount_position=position_config["amount_position"],
                     key=private_key,
                     wallet_address=wallet_address,
-                    entry_price=position_config["additional"]["entry_price"],
-                    max_leverage=position_config["additional"]["max_leverage"],
+                    liquidation_price=position_config["additional"][
+                        "liquidation_price"
+                    ],
                 )
         raise KeyError("Position in config not found")
 

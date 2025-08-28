@@ -32,6 +32,8 @@ class Manager:
     target_ratio_long: float = 0.75
     target_ratio_short: float = 0.75
 
+    rebalance_pourcent: float = 0.04
+
     # --- WEB3 INTERACTION ---
     address: str = "0x"
     rpc: str = "https://arb1.arbitrum.io/rpc"
@@ -67,10 +69,20 @@ class Manager:
             (ratio_short > self.crit_ratio_short),
         ):
             case (True, False):  # Long position needs collateral
-                amount = self.get_amount_to_rebalance(self.long)
+                amount = int(
+                    self.long.amount_position
+                    * price
+                    * self.rebalance_pourcent
+                    * (10**6)
+                )
                 self.update_collat(self.long, self.short, amount)
             case (False, True):  # Short position needs collateral
-                amount = self.get_amount_to_rebalance(self.short)
+                amount = int(
+                    self.short.amount_position
+                    * price
+                    * self.rebalance_pourcent
+                    * (10**6)
+                )
                 self.update_collat(self.short, self.long, amount)
             case (False, False):  # Both position are under control
                 print("No change needed")
