@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime
 import requests
 import time
 from web3 import Web3
@@ -26,13 +27,10 @@ class Manager:
     long: Position = field(default_factory=Position)
     short: Position = field(default_factory=Position)
 
-    crit_ratio_long: float = 0.80
-    crit_ratio_short: float = 0.80
+    crit_ratio_long: float = 0.99
+    crit_ratio_short: float = 0.99
 
-    target_ratio_long: float = 0.75
-    target_ratio_short: float = 0.75
-
-    rebalance_pourcent: float = 0.04
+    rebalance_pourcent: float = 0.035
 
     # --- WEB3 INTERACTION ---
     address: str = "0x"
@@ -59,16 +57,19 @@ class Manager:
         # GET RATIO
         ratio_long = self.long.get_ratio(price)
         ratio_short = self.short.get_ratio(price)
-        print("price", price)
-        print("ratio long:", ratio_long, ", ratio short", ratio_short)
-        print("USDC:", self.get_balance_USDC())
-        return
+
+        amount = int(
+            self.long.amount_position * price * self.rebalance_pourcent * (10**6)
+        )
+        print(datetime.now().replace(microsecond=0), end=" --- ")
+        print("ratio long:", ratio_long, ", ratio short", ratio_short, end=" --- ")
         # UPDATE COLLATERAL
         match (
             (ratio_long > self.crit_ratio_long),
             (ratio_short > self.crit_ratio_short),
         ):
             case (True, False):  # Long position needs collateral
+                print("Long position needs collateral")
                 amount = int(
                     self.long.amount_position
                     * price
@@ -77,6 +78,7 @@ class Manager:
                 )
                 self.update_collat(self.long, self.short, amount)
             case (False, True):  # Short position needs collateral
+                print("Short position needs collateral")
                 amount = int(
                     self.short.amount_position
                     * price
@@ -85,18 +87,13 @@ class Manager:
                 )
                 self.update_collat(self.short, self.long, amount)
             case (False, False):  # Both position are under control
-                print("No change needed")
+                print("NO CHANGE NEEDED")
             case (
                 True,
                 True,
             ):  # Both positions are undercollateralized (should not happen)
                 print("WARNING: Positions too high")
         return
-
-    def get_amount_to_rebalance(self, position: Position) -> int:
-        # to do
-        amount = 0
-        return amount
 
     def update_collat(
         self,

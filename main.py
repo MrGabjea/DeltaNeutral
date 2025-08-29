@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from typing import Any
 import os
+import time
 from config import config
 from src.position import Position
 from src.riskManager import Manager
@@ -45,6 +46,7 @@ def main() -> None:
                     liquidation_price=position_config["additional"][
                         "liquidation_price"
                     ],
+                    crypto=config["crypto"],
                 )
         raise KeyError("Position in config not found")
 
@@ -57,12 +59,28 @@ def main() -> None:
         short=short_pos,
         crit_ratio_long=config["crit_ratio_long"],
         crit_ratio_short=config["crit_ratio_short"],
-        target_ratio_long=config["traget_ratio_long"],
-        target_ratio_short=config["target_ratio_short"],
         rpc=rpc,
         address=wallet_address,
     )
-    risk_manager.manage()
+
+    n_minute = 5
+    print("--- CONFIG ---\n")
+    print(f"wallet: {wallet_address}")
+    print(f"position: {config['long']['amount_position']} {config['crypto']}")
+    print(
+        f"long on {config['long']['type']}, rebalancing triggered when ratio > {config['crit_ratio_long']}"
+    )
+    print(
+        f"short on {config['short']['type']}, rebalancing triggered when ratio > {config['crit_ratio_short']}"
+    )
+    print(f"ratio will be checked every {n_minute} minutes")
+    print("\n--------------\n")
+
+    while True:
+        risk_manager.manage()
+        for i in range(n_minute):
+            for k in range(20):
+                time.sleep(3)
 
 
 if __name__ == "__main__":
