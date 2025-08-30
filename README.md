@@ -1,5 +1,20 @@
 # DeltaNeutral
 
+
+### Overview
+| Protocol     | Type    | Supported |
+|--------------|---------|-----------|
+| Fluid        | lending | ✅ |
+| Aave         | lending | ❌ |
+| Morpho       | lending | ✅ |
+|Nerite        | CDP     | 🏗️ |
+| Hyperliquid  | perp    | ✅ |
+| GMX          | perp    | 🏗️ |
+| Ostium       | perp    | 🏗️ |
+| DYDX         |perp     | ❌ |
+
+
+
 ## Setup Environment
 
 1. Create the virtual environment:
