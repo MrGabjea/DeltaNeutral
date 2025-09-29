@@ -30,7 +30,7 @@ class Manager:
     crit_ratio_long: float = 0.99
     crit_ratio_short: float = 0.99
 
-    rebalance_pourcent: float = 0.035
+    rebalance_pourcent: float = 0.025
 
     # --- WEB3 INTERACTION ---
     address: str = "0x"
@@ -109,17 +109,20 @@ class Manager:
             return
         time.sleep(5)
 
-        # Remove collateral
-        result_remove = position_remove_collat.remove_collateral(amount)
-        if result_remove == 0:
-            print("Error in remove_collateral")
-            return
+        if balance < amount:
+            # Remove collateral
+            result_remove = position_remove_collat.remove_collateral(amount)
+            if result_remove == 0:
+                print("Error in remove_collateral")
+                return
 
-        # Wait for balance update
-        up_balance = balance
-        while up_balance == balance:
-            time.sleep(15)
-            up_balance = self.get_balance_USDC()
+            # Wait for balance update
+            up_balance = balance
+            while up_balance == balance:
+                time.sleep(15)
+                up_balance = self.get_balance_USDC()
+        else:
+            up_balance = balance
 
         # Add collateral
         result_add = position_add_collat.add_collateral(up_balance)

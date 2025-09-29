@@ -32,8 +32,8 @@ Copy config files:
    ```bash
    cp config.example.py config.py
    cp .env.example .env
-``` 
+```
 Fill .env & config.py with the proper parameters.
- ## Run 
+ ## Run
 ```bash
 python main.py
