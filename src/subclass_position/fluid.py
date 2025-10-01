@@ -27,9 +27,8 @@ class Fluid(Position):
             print(" Done")
             print("Output:", result.stdout.strip())
         except subprocess.CalledProcessError as e:
-            print("Erreur lors de l'exécution JS :")
+            # print("Erreur lors de l'exécution JS :")
             print(e.stderr)
-            return 0
         self.amount_collateral += amount
         return 1
 
@@ -50,10 +49,8 @@ class Fluid(Position):
             )
             print(" Done")
             print("Output:", result.stdout.strip())
-            return 1
         except subprocess.CalledProcessError as e:
-            print("Erreur lors de l'exécution JS :")
+            # print("Erreur lors de l'exécution JS :")
             print(e.stderr)
-            return 0
         self.amount_collateral -= amount
         return 1

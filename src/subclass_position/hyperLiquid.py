@@ -38,9 +38,9 @@ class Hyperliquid(Position):
             print(" Done")
             print("Output:", result.stdout.strip())
         except subprocess.CalledProcessError as e:
-            print("Erreur lors de l'exécution JS :")
+            # print("Erreur lors de l'exécution JS :")
             print(e.stderr)
-            return 0
+
         self.amount_collateral += amount
 
         # Update the liquidation price
@@ -68,7 +68,7 @@ class Hyperliquid(Position):
             print(withdraw_result)
         except Exception as e:
             print(f"Failed: {e}")
-            return 0
+
         self.amount_collateral -= amount
 
         # Update the liquidation price
