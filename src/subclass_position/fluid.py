@@ -52,5 +52,6 @@ class Fluid(Position):
         except subprocess.CalledProcessError as e:
             # print("Erreur lors de l'exécution JS :")
             print(e.stderr)
-        self.amount_collateral -= amount
+        # + because it represents the debt
+        self.amount_collateral += amount
         return 1

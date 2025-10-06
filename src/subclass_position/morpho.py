@@ -58,5 +58,5 @@ class Morpho(Position):
             print("Erreur lors de l'exécution JS :")
             print(e.stderr)
             return 0
-        self.amount_collateral -= amount
+        self.amount_collateral += amount
         return 1
